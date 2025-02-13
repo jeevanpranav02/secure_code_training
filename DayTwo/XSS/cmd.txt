@@ -1,0 +1,38 @@
+http://localhost:5000/vulnerable?name=John%20Doe
+http://localhost:5000/vulnerable?name=Varsha%20Sharma
+
+
+
+
+
+http://localhost:5000/vulnerable?name=<script>alert('XSS Attack!')</script>
+// THis is refelcted XSS attack
+http://localhost:5000/vulnerable?name=<script>document.write(document.cookie)</script>
+
+Three types of XSS attacks:
+1. Reflected XSS
+2. Stored XSS
+3. DOM-based XSS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from flask import escape
+
+@app.route('/secure')
+def secure():
+    name = request.args.get('name', 'Guest')
+    safe_name = escape(name)  # Escapes HTML/JS characters
+    return render_template_string(email_template, name=safe_name)
